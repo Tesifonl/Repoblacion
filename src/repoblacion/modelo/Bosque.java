@@ -27,7 +27,12 @@ public class Bosque {
 	}
 
 	public void setAncho(int ancho) {
-		this.ancho = ancho;
+		if (ancho<10 ||ancho>1000) {
+			throw new IllegalArgumentException("ERROR: Anchura no válida.");
+		}
+		else {
+			this.ancho = ancho;
+		}
 	}
 
 	public int getAlto() {
@@ -35,7 +40,12 @@ public class Bosque {
 	}
 
 	public void setAlto(int alto) {
-		this.alto = alto;
+		if (alto<10 ||alto>500 ) {
+			throw new IllegalArgumentException("ERROR: Altura no válida.");
+		}
+		else {
+			this.alto = alto;
+		}
 	}
 	
 	
@@ -45,6 +55,7 @@ public class Bosque {
 			setAncho(ancho);
 			setAlto (alto);	
 			generador = new Random();
+			checkPoblacion(poblacion);
 			arrayArbol=new Arbol[poblacion];
 			repoblar();
 		}
@@ -65,8 +76,13 @@ public class Bosque {
 	
 public void checkPoblacion(int poblacion) {
 		
-		if (poblacion> 2*(ancho+alto)) {throw new IllegalArgumentException ("La poblacion supera el tamaño maximo");}
-	}
+		if (poblacion > 0) {
+			if (poblacion> 2*(ancho+alto)) {throw new IllegalArgumentException ("ERROR: La población no puede superar el perímetro del bosque.");}
+		}
+		else {
+			throw new IllegalArgumentException ("ERROR: La población debe ser mayor que cero.");
+		}
+}
 	
 	
 	private boolean existeEspecie(Especie [] arrayEspecie,Especie especie) {/* hemos creado este metodo para utilizarlo en repoblar aunque no vieene en el diagrama*/
@@ -102,26 +118,40 @@ public void checkPoblacion(int poblacion) {
 		
 		 case (0): { if (!existeEspecie(arrayEspecie,Especie.ALAMO)||totalEspecies<4){ if (i==0) {nuevo=new Arbol(Especie.ALAMO,posicion );
 		 arrayArbol[i]=nuevo;i++;arrayEspecie[totalEspecies]=Especie.ALAMO;totalEspecies++;} else {if (!arrayArbol[i-1].getEspecie().equals(Especie.CASTANO) && !arrayArbol[i-1].getEspecie().equals(Especie.CIPRES)&&
-				 !arrayArbol[i-1].getEspecie().equals(Especie.OLIVO)) {nuevo=new Arbol(Especie.ALAMO,posicion ); arrayArbol[i]=nuevo;i++;arrayEspecie[totalEspecies]=Especie.ALAMO;totalEspecies++;}}}} 
+				 !arrayArbol[i-1].getEspecie().equals(Especie.OLIVO)) {nuevo=new Arbol(Especie.ALAMO,posicion ); arrayArbol[i]=nuevo;i++;arrayEspecie[totalEspecies]=Especie.ALAMO;totalEspecies++;}}}
+		 	break;
+		 } 
 		
 		 case (1): {if (!existeEspecie(arrayEspecie,Especie.ENCINA)||totalEspecies<4) {nuevo=new Arbol(Especie.ENCINA,posicion );
-		 arrayArbol[i]=nuevo;i++;} }
+		 arrayArbol[i]=nuevo;i++;} 
+		 	break;
+		 }
 		 
 		 case (2): {if (!existeEspecie(arrayEspecie,Especie.CASTANO)||totalEspecies<4) {nuevo=new Arbol(Especie.CASTANO,posicion );
-		 arrayArbol[i]=nuevo;i++;}}
+		 arrayArbol[i]=nuevo;i++;}
+		 	break;
+		 }
 		 
 		 case (3): {if (!existeEspecie(arrayEspecie,Especie.CIPRES)||totalEspecies<4) {nuevo=new Arbol(Especie.CIPRES,posicion );
-		 arrayArbol[i]=nuevo;i++;} }
+		 arrayArbol[i]=nuevo;i++;} 
+		 	break;
+		 }
 		 
 		 case (4): {if (!existeEspecie(arrayEspecie,Especie.PINO)||totalEspecies<4) {nuevo=new Arbol(Especie.PINO,posicion );
-		 arrayArbol[i]=nuevo;i++;} }
+		 arrayArbol[i]=nuevo;i++;} 
+		 	break;
+		 }
 		 
 		 case (5): {if (!existeEspecie(arrayEspecie,Especie.ROBLE)||totalEspecies<4) {nuevo=new Arbol(Especie.ROBLE,posicion );
-		 arrayArbol[i]=nuevo;i++;}}
+		 arrayArbol[i]=nuevo;i++;}
+		 	break;
+		 }
 		 
-		 case (6): {if (!existeEspecie(arrayEspecie,Especie.OLIVO)){ if (i==0) {nuevo=new Arbol(Especie.OLIVO,posicion );
+		 case (6): {if (!existeEspecie(arrayEspecie,Especie.OLIVO) || totalEspecies < 4){ if (i==0) {nuevo=new Arbol(Especie.OLIVO,posicion );
 		 arrayArbol[i]=nuevo;i++;arrayEspecie[totalEspecies]=Especie.OLIVO;totalEspecies++;} else {if (!arrayArbol[i-1].getEspecie().equals(Especie.ALAMO) && !arrayArbol[i-1].getEspecie().equals(Especie.CIPRES)&&
-				 !arrayArbol[i-1].getEspecie().equals(Especie.ENCINA)) {nuevo=new Arbol(Especie.OLIVO,posicion ); arrayArbol[i]=nuevo;i++;arrayEspecie[totalEspecies]=Especie.OLIVO;totalEspecies++;}}}}
+				 !arrayArbol[i-1].getEspecie().equals(Especie.ENCINA) || totalEspecies < 4) {nuevo=new Arbol(Especie.OLIVO,posicion ); arrayArbol[i]=nuevo;i++;arrayEspecie[totalEspecies]=Especie.OLIVO;totalEspecies++;}}}
+		 	break;
+		 }
 		
 		}}}
 		

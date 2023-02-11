@@ -11,14 +11,19 @@ public class MainApp {
 		int poblacion;
 		Bosque bosque = null;
 		
-		ancho=Consola.leerAnchura();
-		alto=Consola.leerAnchura();
-		
-		do {
-			poblacion=Consola.leerPoblacion();
+		try {
+			ancho=Consola.leerAnchura();
+			alto=Consola.leerAltura();
 			
-		} while (poblacion> 2*(ancho+alto));
-		
-		bosque = new Bosque(ancho, alto, poblacion);
+			do {
+				poblacion=Consola.leerPoblacion();
+				
+			} while (poblacion> 2*(ancho+alto));
+			
+			bosque = new Bosque(ancho, alto, poblacion);
+		}
+		catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
 	}
 }
